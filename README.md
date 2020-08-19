@@ -15,10 +15,6 @@
   <code><img width="10%" src="https://simpleicons.org/icons/cplusplus.svg"></code>
   <code><img width="10%" src="https://simpleicons.org/icons/python.svg"></code>
   <br />
-  <code><img width="10%" src="https://simpleicons.org/icons/adobeaftereffects.svg"></code>
-  <code><img width="10%" src="https://simpleicons.org/icons/adobeaudition.svg"></code>
-  <code><img width="10%" src="https://simpleicons.org/icons/adobephotoshop.svg"></code>
-  <br />
   <code><img width="10%" src="https://simpleicons.org/icons/git.svg"></code>
   <code><img width="10%" src="https://simpleicons.org/icons/github.svg"></code>
   <code><img width="10%" src="https://simpleicons.org/icons/html5.svg"></code>
