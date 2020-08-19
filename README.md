@@ -12,7 +12,7 @@
   You can use this sites to get logos: https://www.vectorlogo.zone or https://simpleicons.org/
   -->
   <code><img width="10%" src="https://simpleicons.org/icons/unrealengine.svg"></code>
-  <code><img width="10%" src="https://simpleicons.org/icons/cplusplus.sv"></code>
+  <code><img width="10%" src="https://simpleicons.org/icons/cplusplus.svg"></code>
   <code><img width="10%" src="https://simpleicons.org/icons/python.svg"></code>
   <br />
   <code><img width="10%" src="https://simpleicons.org/icons/adobeaftereffects.svg"></code>
@@ -28,4 +28,4 @@
 ### Github State
 
 
-[![StarDustTwinkl's github stats](https://github-readme-stats.vercel.app/api?username=StarDustTwinkl&show_icons=true&title_color=fff&icon_color=79ff97&text_color=9f9f9f&bg_color=151515)](https://github.com/anuraghazra/github-readme-stats)
+[![StarDustTwinkl's github stats](https://github-readme-stats.vercel.app/api?username=StarDustTwinkl&show_icons=true)](https://github.com/anuraghazra/github-readme-stats)
