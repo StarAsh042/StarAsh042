@@ -1,6 +1,6 @@
 ### Hi there, I'm [StarDustTwinkle](https://StarDustTwinkle.github.io) 👋
 
-- 一个游戏建模艺术家[⚪](https://baike.baidu.com/item/游戏模型B/20156434)
+- 一个游戏建模艺术家[⚪](https://baike.baidu.com/item/3D建模/3867022)
 - 来自中国成都[⚪](https://baike.baidu.com/item/成都/128473)
 - 业余时间学习Ureal引擎和编程技术
 
