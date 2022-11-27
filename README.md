@@ -1,8 +1,8 @@
 ### Hi there, I'm [StarDustTwinkle](https://StarDustTwinkle.github.io) 👋
 
-- 一个游戏建模艺术家[⚪](https://baike.baidu.com/item/3D建模/3867022)
-- 来自中国成都[⚪](https://baike.baidu.com/item/成都/128473)
-- 业余时间学习Ureal引擎和编程技术
+- 一个游戏建模民工[⚪](https://baike.baidu.com/item/3D建模/3867022)
+- 来自中国四川省成都市[⚪](https://baike.baidu.com/item/成都/128473)
+- 业余时间学习Ureal引擎和Python编程
 
 
 ### Languages and Tools:
