@@ -25,4 +25,5 @@
 </p>
 
 ### Github State
-![](https://github-readme-stats.vercel.app/api?username=StarDustTwinkle&show_icons=true&theme=dark)
+
+![StarDustTwinkle's GitHub stats](https://github-readme-stats.vercel.app/api?username=StarDustTwinkle&show_icons=true&theme=gruvbox)
