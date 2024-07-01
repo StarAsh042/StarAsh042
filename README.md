@@ -8,20 +8,20 @@
 - Learning Urealengine and programming in spare time
 
 
-### Languages and Tools:
+###  Tools and Languages:
 
 <p>  
   <!-- Your languages and tools. Be careful with the alignment. 
   You can use this sites to get logos: https://www.vectorlogo.zone or https://simpleicons.org/
   -->
   <code><img width="8%" src="https://simpleicons.org/icons/unrealengine.svg"></code>
-  <code><img width="8%" src="https://simpleicons.org/icons/cplusplus.svg"></code>
-  <code><img width="8%" src="https://simpleicons.org/icons/python.svg"></code>
+  <code><img width="8%" src="https://simpleicons.org/icons/blender.svg"></code>
+  <code><img width="8%" src="https://simpleicons.org/icons/adobe.svg"></code>
   
   <br />
-  <code><img width="8%" src="https://simpleicons.org/icons/git.svg"></code>
   <code><img width="8%" src="https://simpleicons.org/icons/github.svg"></code>
-  <code><img width="8%" src="https://simpleicons.org/icons/mysql.svg"></code>
+  <code><img width="8%" src="https://simpleicons.org/icons/python.svg"></code>
+  <code><img width="8%" src="https://simpleicons.org/icons/cplusplus.svg"></code>
 </p>
 
 ### Github State
