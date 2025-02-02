@@ -16,14 +16,14 @@
   -->
   <code><img width="8%" src="https://simpleicons.org/icons/unrealengine.svg"></code>
   <code><img width="8%" src="https://simpleicons.org/icons/blender.svg"></code>
-  <code><img width="8%" src="https://simpleicons.org/icons/adobe.svg"></code>
+  <code><img width="8%" src="https://simpleicons.org/icons/krita.svg"></code>
   
   <br />
   <code><img width="8%" src="https://simpleicons.org/icons/github.svg"></code>
   <code><img width="8%" src="https://simpleicons.org/icons/python.svg"></code>
-  <code><img width="8%" src="https://simpleicons.org/icons/cplusplus.svg"></code>
+  <code><img width="8%" src="https://simpleicons.org/icons/openai.svg"></code>
 </p>
 
 ### Github State
 
-![StarDustTwinkle's GitHub stats](https://github-readme-stats.vercel.app/api?username=StarDustTwinkle&show_icons=true&theme=gruvbox)
+![StarDustTwinkle's GitHub stats](https://github-readme-stats.vercel.app/api?username=StarAsh042&show_icons=true&theme=gruvbox)
