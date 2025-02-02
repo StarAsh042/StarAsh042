@@ -1,10 +1,10 @@
 ### Hi there, I'm [StarDustTwinkle](https://StarDustTwinkle.github.io) 😀
 
-- 一个游戏场景建模师[⚪](https://baike.baidu.com/item/3D建模/3867022)
+- 一个游戏场景建模师[⚪](https://en.wikipedia.org/wiki/3D_modeling)
 - A Game scene modeler.
-- 来自中国四川省成都市[⚪](https://baike.baidu.com/item/成都/128473)
+- 来自中国四川省成都市[⚪](https://en.wikipedia.org/wiki/Chengdu)
 - From Chengdu, Sichuan Province, China.
-- 业余时间学习游戏引擎和AIGC.
+- 业余时间学习游戏引擎和AIGC.[⚪](https://en.wikipedia.org/wiki/Unreal_Engine)[⚪](https://en.wikipedia.org/wiki/Generative_artificial_intelligence)
 - Learning gameEngine and AIGC in spare time.
 
 
