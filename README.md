@@ -14,16 +14,14 @@
   <!-- Your languages and tools. Be careful with the alignment. 
   You can use this sites to get logos: https://www.vectorlogo.zone or https://simpleicons.org/
   -->
-  <code><img width="8%" src="https://simpleicons.org/icons/unrealengine.svg"></code>
-  <code><img width="8%" src="https://simpleicons.org/icons/blender.svg"></code>
-  <code><img width="8%" src="https://simpleicons.org/icons/krita.svg"></code>
-  
-  <br />
-  <code><img width="8%" src="https://simpleicons.org/icons/github.svg"></code>
-  <code><img width="8%" src="https://simpleicons.org/icons/python.svg"></code>
-  <code><img width="8%" src="https://simpleicons.org/icons/openai.svg"></code>
+  <code><img width="4%" src="https://simpleicons.org/icons/unrealengine.svg"></code>
+  <code><img width="4%" src="https://simpleicons.org/icons/blender.svg"></code>
+  <code><img width="4%" src="https://simpleicons.org/icons/autodeskmaya.svg"></code>
+  <code><img width="4%" src="https://images.icon-icons.com/2148/PNG/256/ds_max_icon_132652.png"></code>
+  <code><img width="4%" src="https://images.icon-icons.com/512/PNG/256/zbrush_icon-icons.com_50712.png"></code>
+  <code><img width="4%" src="https://images.icon-icons.com/3875/PNG/256/photoshop_icon_245037.png"></code>
+  <code><img width="4%" src="https://simpleicons.org/icons/krita.svg"></code>
+  <code><img width="4%" src="https://simpleicons.org/icons/github.svg"></code>
+  <code><img width="4%" src="https://simpleicons.org/icons/python.svg"></code>
+  <code><img width="4%" src="https://images.icon-icons.com/3855/PNG/256/code_icon_237906.png"></code>
 </p>
-
-### Github State
-
-![StarAsh042's GitHub stats](https://github-readme-stats.vercel.app/api?username=StarAsh042&show_icons=true&theme=gruvbox)
