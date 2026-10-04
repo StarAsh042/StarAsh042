@@ -1,6 +1,6 @@
 <div align="center">
 
-GitHub Streak
+![StarAsh042](assets/banner-header.svg)
 
 <a href="https://github.com/StarAsh042">
   <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=22&pause=1200&color=9D4EDD&center=true&vCenter=true&width=620&lines=Game+Scene+Modeler+%F0%9F%8E%AE;3D+Artist+%7C+Blender+Addon+Developer;Exploring+Unreal+Engine+%26+AIGC;%2242+reboots%2C+still+StarAsh.%22" alt="Typing SVG" />
@@ -68,6 +68,7 @@ motto:     "42 reboots, still StarAsh."
 <div align="center">
 
 ![StarAsh042 · system status](assets/stats.svg)
+
 
 </div>
 
