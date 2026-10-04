@@ -1,0 +1,37 @@
+name: Update stats card
+
+# 每天重新生成 assets/stats.svg（自建统计卡，不依赖任何第三方图床）
+on:
+  schedule:
+    - cron: "17 3 * * *"      # 每天 03:17 UTC
+  workflow_dispatch:           # 也可以在 Actions 页面手动触发
+
+permissions:
+  contents: write              # 需要写权限才能提交；traffic API 也需要 repo 权限
+
+jobs:
+  stats:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Regenerate stats card
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python tools/make_stats.py
+
+      - name: Commit if changed
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/stats.svg
+          if git diff --staged --quiet; then
+            echo "no change"
+          else
+            git commit -m "chore: refresh stats card"
+            git push
+          fi

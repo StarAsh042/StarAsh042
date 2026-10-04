@@ -10,7 +10,6 @@
   <img src="https://img.shields.io/badge/Chengdu,_Sichuan,_China-4B0082?style=flat-square&logo=googlemaps&logoColor=white" alt="Location" />
   <a href="https://StarAsh042.github.io"><img src="https://img.shields.io/badge/Blog-StarAsh042.github.io-9D4EDD?style=flat-square&logo=githubpages&logoColor=white" alt="Blog" /></a>
   <a href="https://twitter.com/StarAsh042"><img src="https://img.shields.io/badge/X-@StarAsh042-000000?style=flat-square&logo=x&logoColor=white" alt="X" /></a>
-  <img src="https://komarev.com/ghpvc/?username=StarAsh042&label=views&color=9D4EDD&style=flat-square" alt="Profile views" />
 </p>
 
 </div>
@@ -64,25 +63,13 @@ motto:     "42 reboots, still StarAsh."
 
 ---
 
-## 📊 GitHub Stats
+## 📊 Stats
 
 <div align="center">
 
-![StarAsh042's GitHub stats](https://github-readme-stats.vercel.app/api?username=StarAsh042&show_icons=true&theme=radical&hide_border=true&include_all_commits=true&count_private=true&cache_seconds=86400)
+![StarAsh042 · system status](assets/stats.svg)
 
 ![GitHub Streak](https://streak-stats.demolab.com?user=StarAsh042&theme=radical&hide_border=true)
-
-![Trophy](https://github-profile-trophy.vercel.app/?username=StarAsh042&theme=radical&no-frame=true&no-bg=true&column=7&margin-w=4)
-
-</div>
-
----
-
-## 📈 Activity Graph
-
-<div align="center">
-
-![Activity Graph](https://github-readme-activity-graph.vercel.app/graph?username=StarAsh042&theme=react-dark&hide_border=true&area=true&custom_title=StarAsh042%27s%20Contribution%20Graph)
 
 </div>
 
