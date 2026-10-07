@@ -59,6 +59,8 @@ motto:     "42 reboots, still StarAsh."
   <img src="https://img.shields.io/badge/ComfyUI-1E1E2E?style=for-the-badge" />
   <img src="https://img.shields.io/badge/Stable_Diffusion-8B5CF6?style=for-the-badge" />
   <img src="https://img.shields.io/badge/DeepSeek-4D6BFE?style=for-the-badge&logo=deepseek&logoColor=white" />
+  <img src="https://img.shields.io/badge/C%2B%2B-00599C?style=for-the-badge&logo=c%2B%2B&logoColor=white" />
+  <img src="https://img.shields.io/badge/C%23-239120?style=for-the-badge&logo=dotnet&logoColor=white" />
 </p>
 
 ---
