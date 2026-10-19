@@ -37,31 +37,7 @@ motto:     "42 reboots, still StarAsh."
 
 ## 🧰 Tech & Tools
 
-**3D · DCC**
-
-<p>
-  <img src="https://img.shields.io/badge/Unreal_Engine-0E1128?style=for-the-badge&logo=unrealengine&logoColor=white" />
-  <img src="https://img.shields.io/badge/Blender-E87D0D?style=for-the-badge&logo=blender&logoColor=white" />
-  <img src="https://img.shields.io/badge/Autodesk_Maya-37A5CC?style=for-the-badge&logo=autodeskmaya&logoColor=white" />
-  <img src="https://img.shields.io/badge/3ds_Max-1B8A2F?style=for-the-badge" />
-  <img src="https://img.shields.io/badge/ZBrush-8E44AD?style=for-the-badge" />
-  <img src="https://img.shields.io/badge/Substance-FF6C37?style=for-the-badge" />
-  <img src="https://img.shields.io/badge/Marmoset_Toolbag-FF0044?style=for-the-badge" />
-  <img src="https://img.shields.io/badge/Photoshop-31A8FF?style=for-the-badge&logo=adobephotoshop&logoColor=white" />
-</p>
-
-**Code · AI**
-
-<p>
-  <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" />
-  <img src="https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white" />
-  <img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white" />
-  <img src="https://img.shields.io/badge/ComfyUI-1E1E2E?style=for-the-badge" />
-  <img src="https://img.shields.io/badge/Stable_Diffusion-8B5CF6?style=for-the-badge" />
-  <img src="https://img.shields.io/badge/DeepSeek-4D6BFE?style=for-the-badge&logo=deepseek&logoColor=white" />
-  <img src="https://img.shields.io/badge/C%2B%2B-00599C?style=for-the-badge&logo=c%2B%2B&logoColor=white" />
-  <img src="https://img.shields.io/badge/C%23-239120?style=for-the-badge&logo=dotnet&logoColor=white" />
-</p>
+![Tech & Tools](assets/tech.svg)
 
 ---
 
