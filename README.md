@@ -2,10 +2,6 @@
 
 ![StarAsh042](assets/banner-header.svg)
 
-<a href="https://github.com/StarAsh042">
-  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=22&pause=1200&color=9D4EDD&center=true&vCenter=true&width=620&lines=Game+Scene+Modeler+%F0%9F%8E%AE;3D+Artist+%7C+Blender+Addon+Developer;Exploring+Unreal+Engine+%26+AIGC;%2242+reboots%2C+still+StarAsh.%22" alt="Typing SVG" />
-</a>
-
 <p>
   <img src="https://img.shields.io/badge/Chengdu,_Sichuan,_China-4B0082?style=flat-square&logo=googlemaps&logoColor=white" alt="Location" />
   <a href="https://StarAsh042.github.io"><img src="https://img.shields.io/badge/Blog-StarAsh042.github.io-9D4EDD?style=flat-square&logo=githubpages&logoColor=white" alt="Blog" /></a>
