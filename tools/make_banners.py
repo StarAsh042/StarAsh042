@@ -197,7 +197,11 @@ BASE_CSS = """@keyframes floatY    { 0%,100% { transform:translateY(0) } 50% { t
     .dosboot  { animation: dosFade 20s linear infinite; }
     .loader   { animation: loaderFade 20s linear infinite; }
     .ldinfo   { animation: ldflick 1.4s steps(1,end) infinite; }
-    .blink    { animation: blink 1.1s steps(1,end) infinite; }
+    .blink    { animation: blink 1.1s steps(1,end) infinite; }"""
+
+
+# 数字雨那一套（0/1 跳变）：stats 卡只借雨、不要其余 CRT 效果，所以单独拆成常量。
+RAIN_CSS = """
     /* ── 0/1 随机跳变 ──────────────────────────────────────────────
        0 与 1 的点阵差集被拆成三层：#gc 常亮、#gA 仅「0」有、#gB 仅「1」有。
        A/B 用同一组时间点做互补显隐 → 每一格在 0 与 1 之间硬切（steps 保证是「跳」）。
@@ -221,6 +225,8 @@ BASE_CSS = """@keyframes floatY    { 0%,100% { transform:translateY(0) } 50% { t
                animation-delay: var(--fd, 0s); }
     .fa { animation-name: flipA; }
     .fb { animation-name: flipB; }"""
+
+BASE_CSS = BASE_CSS + "\n    " + RAIN_CSS
 
 
 def char_css(rng, n):
@@ -469,7 +475,7 @@ def rain_well(w, h, cx, cy, rx, ry):
     </mask>'''
 
 
-def defs(chars, gx1, gx2, spath, tbands, vbands, well):
+def defs(w, h, chars, gx1, gx2, spath, tbands, vbands, well):
     glyphs3 = "".join(
         f'<g id="g{k}">' + "".join(
             f'<rect x="{c * PX}" y="{r * PX}" width="{CELL}" height="{CELL}"/>'
@@ -485,12 +491,12 @@ def defs(chars, gx1, gx2, spath, tbands, vbands, well):
         f'<use xlink:href="#gch{i}" href="#gch{i}" fill="url(#titleGrad)"/>'
         for i in range(len(chars))) + "</g>")
     tbclips = "".join(
-        f'<clipPath id="tb{i + 1}"><rect x="0" y="{y}" width="1280" '
+        f'<clipPath id="tb{i + 1}"><rect x="0" y="{y}" width="{w}" '
         f'height="{hh}"/></clipPath>' for i, (y, hh) in enumerate(tbands))
     # 竖向切片：上下撕扯用
     vbclips = "".join(
         f'<clipPath id="vb{i + 1}"><rect x="{x}" y="0" width="{ww}" '
-        f'height="512"/></clipPath>' for i, (x, ww) in enumerate(vbands))
+        f'height="{h}"/></clipPath>' for i, (x, ww) in enumerate(vbands))
     return f"""<defs>
     <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0" stop-color="{BG0}"/>
@@ -702,10 +708,11 @@ def flip_cell(rng, x, y, li, row, head):
             f'<use class="fb" xlink:href="#gB" href="#gB"/></g>')
 
 
-def rain(rng, w, h):
+def rain(rng, w, h, layers=None):
     """三层雨，各自独立的格距/行数/速度/亮度。整组套一层遮罩 —— 标题背后让出暗场。"""
+    layers = LAYERS if layers is None else layers
     out = ['<g class="rainRush" mask="url(#rainMask)">']
-    for li, (_, _, speed, pitch, rows, step, off) in enumerate(LAYERS):
+    for li, (_, _, speed, pitch, rows, step, off) in enumerate(layers):
         col_h = rows * pitch
         cells = []
         for i in range(int((w - off) // step)):
@@ -787,14 +794,17 @@ def svg(w, h, css, body, label):
 
 
 def build_header():
-    w, h = 1280, 320
+    # 860：GitHub Profile 内容区的实测宽度。按原生尺寸出图，6px 点阵不再被浏览器缩放重采样。
+    w, h = 860, 320
     rng = random.Random(42)
     text = "StarAsh042"
-    chars, tw = pixel_chars(text, 12, 0, 0)
+    # 1280 宽时标题 px=12（占宽 50%）。改成 860 后若沿用 12，标题会撑到 74%，
+    # 整张卡的重心就塌了；px=9 让占比回到 55%，和原来被缩放到 860 时的观感一致。
+    chars, tw = pixel_chars(text, 9, 0, 0)
     x0 = (w - tw) / 2
-    chars, _ = pixel_chars(text, 12, x0, 108)
-    _, iw = pixel_chars(INFO_TEXT, 4, 0, 0)
-    info_rects = "".join(pixel_chars(INFO_TEXT, 4, (w - iw) / 2, 214)[0])
+    chars, _ = pixel_chars(text, 9, x0, 118)
+    _, iw = pixel_chars(INFO_TEXT, 3, 0, 0)
+    info_rects = "".join(pixel_chars(INFO_TEXT, 3, (w - iw) / 2, 214)[0])
     ccss, active = char_css(rng, len(text))
     css = (BASE_CSS + "\n    " + rain_css(LAYERS, h) + "\n    " + ccss
            + "\n    " + dos_css() + "\n    " + loader_css(rng))
@@ -808,8 +818,8 @@ def build_header():
         f'<rect width="{w}" height="{h}" fill="url(#bg)"/>',
         f'<rect width="{w}" height="{h}" fill="url(#cells)"/>',
         rain(rng, w, h),
-        f'<g class="f-a">{pixel_disc(16, 38, 4, pb, pd)}</g>',
-        f'<g class="f-b">{pixel_disc(203, 14, 3, ob, od)}</g>',
+        f'<g class="f-a">{pixel_disc(14, 23, 3, pb, pd)}</g>',
+        f'<g class="f-b">{pixel_disc(137, 20, 2, ob, od)}</g>',
         glitch_title(len(text), active),
         f'<g fill="#eafff6" opacity="0.92">{info_rects}</g>',
         vhs_bars(rng, w, h, 14),
@@ -829,22 +839,25 @@ def build_header():
         '</g>',
     ]
     tbands = [(96, 24), (142, 18), (188, 16), (238, 20)]
-    vbands = [(330, 26), (560, 34), (800, 22)]
-    return svg(w, h, css, defs(chars, x0, x0 + tw,
+    vbands = [(215, 22), (390, 30), (610, 18)]
+    return svg(w, h, css, defs(w, h, chars, x0, x0 + tw,
                                screen_path(w, h, 10, 34, 28), tbands, vbands,
-                               rain_well(w, h, 640, 162, 372, 82))
+                               rain_well(w, h, w / 2, 176, 330, 95))
                + "".join(body), "StarAsh042")
 
 
 def build_footer():
-    w, h = 1280, 180
+    w, h = 860, 180
     rng = random.Random(7)
     text = "42 reboots, still StarAsh."
-    _, tw = pixel_chars(text, 6, 0, 0)
+    # 25 个字符按原来 px=6 会到 894，比卡片还宽；px=4 占宽 69%，
+    # 正好等于 1280 版被缩放到 860 时的样子。信息行用 px=3（再小就画不出 1px 笔画）。
+    px = 4
+    _, tw = pixel_chars(text, px, 0, 0)
     x0 = (w - tw) / 2
-    chars, _ = pixel_chars(text, 6, x0, 69)
+    chars, _ = pixel_chars(text, px, x0, 76)
     _, iw = pixel_chars(INFO_TEXT, 3, 0, 0)
-    info_rects = "".join(pixel_chars(INFO_TEXT, 3, (w - iw) / 2, 124)[0])
+    info_rects = "".join(pixel_chars(INFO_TEXT, 3, (w - iw) / 2, 128)[0])
     ccss, active = char_css(rng, len(text))
     css = (BASE_CSS + "\n    " + rain_css(LAYERS, h) + "\n    " + ccss
            + "\n    " + dos_css() + "\n    " + loader_css(rng))
@@ -858,8 +871,8 @@ def build_footer():
         f'<rect width="{w}" height="{h}" fill="url(#bg)"/>',
         f'<rect width="{w}" height="{h}" fill="url(#cells)"/>',
         rain(rng, w, h),
-        f'<g class="f-a">{pixel_disc(14, 20, 3, pb, pd)}</g>',
-        f'<g class="f-b">{pixel_disc(204, 9, 2, ob, od)}</g>',
+        f'<g class="f-a">{pixel_disc(13, 23, 2, pb, pd)}</g>',
+        f'<g class="f-b">{pixel_disc(135, 10, 2, ob, od)}</g>',
         glitch_title(len(text), active),
         f'<g fill="#eafff6" opacity="0.92">{info_rects}</g>',
         vhs_bars(rng, w, h, 10),
@@ -878,10 +891,10 @@ def build_footer():
         '</g>',
     ]
     tbands = [(58, 16), (86, 14), (118, 12), (142, 14)]
-    vbands = [(400, 24), (620, 30), (860, 20)]
-    return svg(w, h, css, defs(chars, x0, x0 + tw,
+    vbands = [(255, 20), (430, 26), (640, 16)]
+    return svg(w, h, css, defs(w, h, chars, x0, x0 + tw,
                                screen_path(w, h, 10, 26, 22), tbands, vbands,
-                               rain_well(w, h, 640, 94, 430, 46))
+                               rain_well(w, h, w / 2, 112, 380, 46))
                + "".join(body), "42 reboots, still StarAsh.")
 
 

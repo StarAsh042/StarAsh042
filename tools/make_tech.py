@@ -13,14 +13,14 @@
   · 每个条目 = 一个方框，**全称直接写在框里**（不再用 2 字母缩写 + 下方名称：
     缩写和全称重复，既占地方又显得信息量低）
   · 配色不是 18 种品牌色，而是**按分组取横幅的四个霓虹色**：
-      ENGINE 橙 / 3D·DCC 青 / CODE 绿 / AI 品红 —— 一眼能看出分区
+      3D·DCC 青 / CODE 绿 / AI 品红 —— 一眼能看出分区
   · 不做 logo：38px 里画不出可辨认的官方图标，硬画只会糊成一团；
-    统一成「全称方框」至少保证 18 个视觉重量一致、排序配色完全可控
+    统一成「全称方框」至少保证所有条目视觉重量一致、排序配色完全可控
 
 省体积：
   每个字模只定义一次（<defs> 里一条 path，同一行连续的格子合并成一个子路径），
   正文全部用 <use> 引用 —— 比逐格 <rect> 小一个数量级。
-输出：assets/tech.svg（880 宽，1:1 显示，不缩放）
+输出：assets/tech.svg（860 宽，等于 GitHub Profile 内容区宽度，1:1 显示不缩放）
 """
 import pathlib
 import xml.etree.ElementTree as ET
@@ -28,7 +28,7 @@ import xml.etree.ElementTree as ET
 BASE = pathlib.Path(__file__).resolve().parent
 OUT = BASE.parent / "assets" / "tech.svg"
 
-W = 880
+W = 860                    # GitHub Profile 内容区实测宽度 —— 按原生尺寸出图，浏览器不再缩放
 PAD = 18
 LBLW = 80                  # 左侧分组名列宽
 CHIP_H = 28                # 条目方框高度
@@ -42,12 +42,11 @@ TILE_BG, TILE_EDGE = "#0e1c18", "#22362e"
 NAME_COL = "#a6c0b6"
 
 GROUPS = (
-    ("ENGINE", "#ffa23c", ("UNREAL ENGINE",)),
-    ("3D·DCC", "#38d6ff", ("BLENDER", "MAYA", "3DS MAX", "ZBRUSH",
+    ("3D·DCC", "#38d6ff", ("UNREAL ENGINE", "BLENDER", "MAYA", "3DS MAX", "ZBRUSH",
                            "SUBSTANCE", "MARMOSET", "PHOTOSHOP")),
     ("CODE", "#25e07f", ("PYTHON", "C++", "C#", "RUST", "JAVASCRIPT",
-                         "GIT", "GITHUB")),
-    ("AI", "#ff4fd8", ("COMFYUI", "STABLE DIFFUSION", "DEEPSEEK")),
+                         "TYPESCRIPT", "GIT", "GITHUB")),
+    ("AI", "#ff4fd8", ("COMFYUI", "STABLE DIFFUSION", "DEEPSEEK", "DEEPSEEK HARNESS")),
 )
 
 FONT = {
@@ -120,6 +119,35 @@ def tw(text, px):
     return (len(text) * 6 - 1) * px
 
 
+def layout(items):
+    """按可用宽度折行，并把条目尽量平均地分到各行。
+
+    纯贪心会折出「前 6 后 2」的尾巴 —— 第二行只有两个框，看着像没排完。
+    所以先贪心求出「最少需要几行」，再把条目尽量平均地摊到这些行里。
+    """
+    widths = [tw(label, NAME_PX) + CHIP_PAD * 2 for label in items]
+    avail = W - 2 * PAD - LBLW              # 一行能用的宽度
+
+    n_lines, used = 1, 0.0                  # 1) 最少行数
+    for w in widths:
+        step = w if used == 0 else w + SLOT_GAP
+        if used and used + step > avail:
+            n_lines += 1
+            used = w
+        else:
+            used += step
+
+    out, start = [], 0                      # 2) 平均分配，行宽不够再往前挪
+    for li in range(n_lines):
+        left = len(widths) - start
+        take = -(-left // (n_lines - li))   # 余数优先给前面的行
+        while take > 1 and sum(widths[start:start + take]) + SLOT_GAP * (take - 1) > avail:
+            take -= 1
+        out.append(list(zip(items[start:start + take], widths[start:start + take])))
+        start += take
+    return out
+
+
 def text_run(text, x, y, px):
     """一段文字：外层 <g> 负责平移+缩放，内部每个字只是一个 <use>。"""
     uses = "".join(f'<use xlink:href="#{gid(ch)}" href="#{gid(ch)}" x="{i * 6}"/>'
@@ -132,23 +160,23 @@ def build():
                    for ch, p in FONT.items())
     rows, y = [], PAD
     for gname, accent, items in GROUPS:
-        # 左侧分组名，与方框垂直居中
-        rows.append(f'<g fill="{accent}" opacity="0.72">'
-                    f'{text_run(gname, PAD, y + (CHIP_H - 7 * NAME_PX) / 2, NAME_PX)}</g>')
-        x = PAD + LBLW
-        for label in items:
-            w = tw(label, NAME_PX) + CHIP_PAD * 2
-            rows.append(
-                f'<rect x="{x:.1f}" y="{y}" width="{w:.1f}" height="{CHIP_H}" rx="1" '
-                f'fill="{TILE_BG}" stroke="{TILE_EDGE}" stroke-width="1"/>'
-                # 左侧 2px 强调条：颜色只在这里出现，文字保持统一浅色，18 个框才不花
-                f'<rect x="{x + 1:.1f}" y="{y + 1}" width="2" height="{CHIP_H - 2}" '
-                f'fill="{accent}" opacity="0.85"/>'
-                f'<g fill="{NAME_COL}">'
-                f'{text_run(label, x + CHIP_PAD + 3, y + (CHIP_H - 7 * NAME_PX) / 2, NAME_PX)}</g>')
-            x += w + SLOT_GAP
-        assert x - SLOT_GAP <= W - PAD, f"{gname} 行超宽：{x:.0f} > {W - PAD}"
-        y += CHIP_H + 12
+        for li, line in enumerate(layout(items)):
+            # 分组名只写在第一行（与首行方框垂直居中），折出来的续行留空
+            if li == 0:
+                rows.append(f'<g fill="{accent}" opacity="0.72">'
+                            f'{text_run(gname, PAD, y + (CHIP_H - 7 * NAME_PX) / 2, NAME_PX)}</g>')
+            x = PAD + LBLW
+            for label, w in line:
+                rows.append(
+                    f'<rect x="{x:.1f}" y="{y}" width="{w:.1f}" height="{CHIP_H}" rx="1" '
+                    f'fill="{TILE_BG}" stroke="{TILE_EDGE}" stroke-width="1"/>'
+                    # 左侧 2px 强调条：颜色只在这里出现，文字保持统一浅色，条目才不花
+                    f'<rect x="{x + 1:.1f}" y="{y + 1}" width="2" height="{CHIP_H - 2}" '
+                    f'fill="{accent}" opacity="0.85"/>'
+                    f'<g fill="{NAME_COL}">'
+                    f'{text_run(label, x + CHIP_PAD + 3, y + (CHIP_H - 7 * NAME_PX) / 2, NAME_PX)}</g>')
+                x += w + SLOT_GAP
+            y += CHIP_H + 12
     h = int(y - 12 + PAD)
     body = (f'<rect width="{W}" height="{h}" fill="{BG}"/>'
             f'<rect width="{W}" height="{h}" fill="url(#grid)"/>'
@@ -158,8 +186,8 @@ def build():
            f'xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 {W} {h}" '
            f'width="{W}" height="{h}" role="img" aria-label="Tech stack — '
            f'Unreal Engine, Blender, Maya, 3ds Max, ZBrush, Substance, Marmoset, '
-           f'Photoshop, Python, C++, C#, Rust, JavaScript, Git, GitHub, ComfyUI, '
-           f'Stable Diffusion, DeepSeek">'
+           f'Photoshop, Python, C++, C#, Rust, JavaScript, TypeScript, Git, GitHub, '
+           f'ComfyUI, Stable Diffusion, DeepSeek, DeepSeek Harness">'
            f'<defs>{defs}'
            f'<pattern id="grid" width="6" height="6" patternUnits="userSpaceOnUse">'
            f'<path d="M0 0 H6" stroke="#000" stroke-width="1" opacity="0.22"/>'
@@ -171,6 +199,6 @@ def build():
 if __name__ == "__main__":
     content, h = build()
     OUT.parent.mkdir(exist_ok=True)
-    OUT.write_text(content, encoding="utf-8")
+    OUT.write_text(content, encoding="utf-8", newline="\n")   # 仓库里存 LF，别让 Windows 写成 CRLF
     ET.fromstring(content)                       # XML 合法性自检
     print(f"OK  {OUT}  {W}×{h}  ({len(content)} bytes)")

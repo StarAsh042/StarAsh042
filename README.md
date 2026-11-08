@@ -23,15 +23,16 @@ name:      StarAsh042
 role:      Game Scene Modeler / 3D Artist
 company:   Keywords Studios
 location:  Chengdu · Sichuan · China
-focus:     Game Engines · AIGC · 3D Toolchain Automation
+focus:     Game Engines · AIGC · 3D Toolchain Automation · Vibe Coding
 motto:     "42 reboots, still StarAsh."
 ```
 
-- 🎨 **游戏场景建模师** —— 来自中国 · 四川 · 成都
-- 🧩 喜欢用 **Blender + Python** 把重复的美术流程打磨成一键插件
-- 🧠 业余时间研究 **游戏引擎** 与 **AIGC**，探索 AI 与 3D 工作流的结合
-- 🛠️ 正在构建一套面向游戏美术的 **自动化工具链**：重拓扑 / 低模质检 / 顶点色 / ComfyUI 节点
-- 🌱 持续学习中，欢迎交流建模与工具开发
+- 🎨 **场景建模** —— 游戏场景与道具，从 blockout 到最终资产
+- 🧩 **插件开发** —— Blender + Python，把重复流程做成一键工具
+- 🛠️ **流程自动化** —— 重拓扑 · 低模质检 · 顶点色 · 批量渲染
+- 🧠 **技术探索** —— 游戏引擎与 AIGC，寻找 AI × 3D 的接缝
+- ⚡ **Vibe Coding** —— 随手写些小工具，先解决自己的痒点
+- 🌱 **持续学习** —— 保持好奇，欢迎交流建模与工具开发
 
 ---
 
