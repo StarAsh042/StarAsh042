@@ -62,9 +62,3 @@ motto:     "42 reboots, still StarAsh."
 <a href="https://twitter.com/StarAsh042"><img src="https://img.shields.io/badge/X-@StarAsh042-000000?style=for-the-badge&logo=x&logoColor=white" /></a>
 
 </div>
-
-<div align="center">
-
-![42 reboots, still StarAsh.](assets/banner-footer.svg)
-
-</div>
