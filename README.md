@@ -2,24 +2,18 @@
 
 ![StarAsh042](assets/banner-header.svg)
 
-<p>
-  <img src="https://img.shields.io/badge/Chengdu,_Sichuan,_China-4B0082?style=flat-square&logo=googlemaps&logoColor=white" alt="Location" />
-  <a href="https://StarAsh042.github.io"><img src="https://img.shields.io/badge/Blog-StarAsh042.github.io-9D4EDD?style=flat-square&logo=githubpages&logoColor=white" alt="Blog" /></a>
-  <a href="https://twitter.com/StarAsh042"><img src="https://img.shields.io/badge/X-@StarAsh042-000000?style=flat-square&logo=x&logoColor=white" alt="X" /></a>
-</p>
-
 </div>
 
 ## 🎮 About Me
 
-```yaml
-name:      StarAsh042
-role:      Game Scene Modeler / 3D Artist
-company:   Keywords Studios
-location:  Chengdu · Sichuan · China
-focus:     Game Engines · AIGC · 3D Toolchain Automation · Vibe Coding
-motto:     "42 reboots, still StarAsh."
-```
+<table>
+<tr><td><b>name</b></td><td>StarAsh042</td></tr>
+<tr><td><b>role</b></td><td>Game Scene Modeler / 3D Artist</td></tr>
+<tr><td><b>company</b></td><td>Keywords Studios</td></tr>
+<tr><td><b>location</b></td><td>Chengdu · Sichuan · China</td></tr>
+<tr><td><b>focus</b></td><td>Game Engines · AIGC · 3D Toolchain Automation · Vibe Coding</td></tr>
+<tr><td><b>motto</b></td><td>"42 reboots, still StarAsh."</td></tr>
+</table>
 
 - 🎨 **场景建模** —— 游戏场景与道具，从 blockout 到最终资产
 - 🧩 **插件开发** —— Blender + Python，把重复流程做成一键工具
