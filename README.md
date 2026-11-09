@@ -10,8 +10,6 @@
 
 </div>
 
----
-
 ## 🎮 About Me
 
 ```yaml
@@ -30,13 +28,9 @@ motto:     "42 reboots, still StarAsh."
 - ⚡ **Vibe Coding** —— 随手写些小工具，先解决自己的痒点
 - 🌱 **持续学习** —— 保持好奇，欢迎交流建模与工具开发
 
----
-
 ## 🧰 Tech & Tools
 
 ![Tech & Tools](assets/tech.svg)
-
----
 
 ## 📊 Stats
 
@@ -44,17 +38,12 @@ motto:     "42 reboots, still StarAsh."
 
 ![StarAsh042 · system status](assets/stats.svg)
 
-
 </div>
-
----
 
 ## 📫 Connect with Me
 
 <div align="center">
 
-<a href="https://StarAsh042.github.io"><img src="https://img.shields.io/badge/Blog-StarAsh042.github.io-9D4EDD?style=for-the-badge&logo=githubpages&logoColor=white" /></a>
-<a href="https://github.com/StarAsh042"><img src="https://img.shields.io/badge/GitHub-StarAsh042-181717?style=for-the-badge&logo=github&logoColor=white" /></a>
-<a href="https://twitter.com/StarAsh042"><img src="https://img.shields.io/badge/X-@StarAsh042-000000?style=for-the-badge&logo=x&logoColor=white" /></a>
+<a href="https://StarAsh042.github.io"><img src="https://img.shields.io/badge/Blog-StarAsh042.github.io-9D4EDD?style=for-the-badge&logo=githubpages&logoColor=white" /></a> <a href="https://github.com/StarAsh042"><img src="https://img.shields.io/badge/GitHub-StarAsh042-181717?style=for-the-badge&logo=github&logoColor=white" /></a> <a href="https://twitter.com/StarAsh042"><img src="https://img.shields.io/badge/X-@StarAsh042-000000?style=for-the-badge&logo=x&logoColor=white" /></a>
 
 </div>

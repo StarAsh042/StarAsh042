@@ -36,10 +36,13 @@ NV_PX = 5                  # 指标数字的点阵边长（六列并排，比四
 # 雨的三层结构借自横幅（远暗近亮、远快近慢），但整组增益压低一档：
 # 横幅里雨和大标题抢画面，这里满屏都是数据，雨必须退到背景层，
 # 否则「410」「109」这种多位数字会被雨的数字打断，读不出来。
+# 增益再乘 1.15：原来 0.30/0.42/0.54 比横幅低了两档，两张卡并排时统计卡的雨
+# 明显发灰，背景纯度对不上。现在的实际值是 0.345/0.483/0.621。
+RAIN_GAIN = 1.15
 RAIN_LAYERS = (
-    ("far",  0.30, 1.60, 30, 9, 66, 10),
-    ("mid",  0.42, 1.05, 36, 8, 60, 40),
-    ("near", 0.54, 0.72, 42, 6, 92, 64),
+    ("far",  0.30 * RAIN_GAIN, 1.60, 30, 9, 66, 10),
+    ("mid",  0.42 * RAIN_GAIN, 1.05, 36, 8, 60, 40),
+    ("near", 0.54 * RAIN_GAIN, 0.72, 42, 6, 92, 64),
 )
 
 
@@ -122,9 +125,12 @@ def build(d):
     ltotal = sum(n for _, n in langs) or 1
     MX = 80.0                      # 左右安全边
 
+    # 画布透明：整幅黑底会让卡片在浅色主题下变成一道黑条（实测差 237）。
+    # 屏幕形状自己就是边界，机壳与阴影带在 B.screen_frame 里补。
+    spath = B.screen_path(W, H, 18, 12, 18)
     body = [
-        f'<rect width="{W}" height="{H}" fill="#000000"/>',
         '<g clip-path="url(#screen)">',
+        f'<rect width="{W}" height="{H}" fill="{B.BG0}"/>',
         f'<rect width="{W}" height="{H}" fill="url(#bg)"/>',
         f'<rect width="{W}" height="{H}" fill="url(#cells)"/>',
         B.rain(rng, W, H, RAIN_LAYERS),
@@ -145,7 +151,7 @@ def build(d):
     body.append(mono(MX, 214, "LANGUAGES", 12, ls=1.5))
     bx, bw = 200.0, 580.0
     body.append(f'<rect x="{bx:.0f}" y="202" width="{bw:.0f}" height="16" '
-                f'fill="#0b1a12" stroke="#2a4a38" stroke-width="1"/>')
+                f'fill="#0b1a12" stroke="#2a4a39" stroke-width="1"/>')
     used = 0.0
     for k, (name, cnt) in enumerate(langs[:3]):
         frac = cnt / ltotal
@@ -156,7 +162,10 @@ def build(d):
     body.append(mono(W / 2, 246, legend, 12, anchor="middle"))
     body.append(f'<rect width="{W}" height="{H}" fill="url(#lcd)"/>')
     body.append(f'<rect width="{W}" height="{H}" fill="url(#vig)"/>')
+    # 横幅有玻璃反光、统计卡没有 —— 两张卡并排时一眼能看出质感不同，补上
+    body.append(f'<rect width="{W}" height="{H}" fill="url(#glass)"/>')
     body.append("</g>")
+    body.append(B.screen_frame(W, H, spath))
 
     pair = "".join(B.glyph_group(gid, cells)
                    for gid, cells in zip(("gc", "gA", "gB"), B.glyph_split()))
@@ -180,18 +189,30 @@ def build(d):
       <stop offset="1" stop-color="{B.ORANGE}" stop-opacity="0"/>
     </linearGradient>
     <pattern id="cells" width="{B.PX}" height="{B.PX}" patternUnits="userSpaceOnUse">
-      <rect x="0.5" y="0.5" width="{B.CELL}" height="{B.CELL}" fill="#5affa8" opacity="0.045"/>
+      <rect x="0.5" y="0.5" width="{B.CELL}" height="{B.CELL}" fill="#5affa9" opacity="0.045"/>
     </pattern>
     <pattern id="lcd" width="{B.PX}" height="{B.PX}" patternUnits="userSpaceOnUse">
       <path d="M0 0 H{B.PX}" stroke="#000000" stroke-width="1" opacity="0.26"/>
       <path d="M0 0 V{B.PX}" stroke="#000000" stroke-width="1" opacity="0.15"/>
     </pattern>
+    <!-- 玻璃反光：与横幅同一套参数，两张卡质感才一致 -->
+    <radialGradient id="glass" cx="0.24" cy="0.08" r="0.46">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.085"/>
+      <stop offset="0.55" stop-color="#ffffff" stop-opacity="0.026"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <!-- 暗角：收到 0.50（原 0.72），边角只是暗，不是死黑 -->
     <radialGradient id="vig" cx="0.5" cy="0.5" r="0.78">
       <stop offset="0.35" stop-color="#000000" stop-opacity="0"/>
-      <stop offset="0.72" stop-color="#000000" stop-opacity="0.28"/>
-      <stop offset="1" stop-color="#000000" stop-opacity="0.72"/>
+      <stop offset="0.72" stop-color="#000000" stop-opacity="0.20"/>
+      <stop offset="1" stop-color="#000000" stop-opacity="0.50"/>
     </radialGradient>
-    <clipPath id="screen"><path d="{B.screen_path(W, H, 10, 30, 24)}"/></clipPath>
+    <linearGradient id="bezelHi" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#9ad8b6" stop-opacity="0.30"/>
+      <stop offset="0.5" stop-color="#5f8a72" stop-opacity="0.08"/>
+      <stop offset="1" stop-color="#9ad8b6" stop-opacity="0.20"/>
+    </linearGradient>
+    <clipPath id="screen"><path d="{spath}"/></clipPath>
     {B.rain_well(W, H, W / 2, 145, 350, 122)}
     {pair}
   </defs>

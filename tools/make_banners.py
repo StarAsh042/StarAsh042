@@ -25,8 +25,8 @@ MONO = "'Courier New',Consolas,Menlo,monospace"
 CYAN, BLUE = "#38d6ff", "#5b8cff"
 MAGENTA, ORANGE = "#ff4fd8", "#ffa23c"
 WHITE = "#ffffff"
-RAIN, RAIN_HEAD = "#25e07f", "#a9f0cd"
-RAIN_FLASH = "#d9ffec"     # 跳字那一瞬的过曝色（约 2 帧，一闪即回）
+RAIN, RAIN_HEAD = "#25e07f", "#a9f0cb"
+RAIN_FLASH = "#d9ffeb"     # 跳字那一瞬的过曝色（约 2 帧，一闪即回）
 # 数字雨的亮度预算（整组压暗，让标题重新当主角）：
 #   列尾 0.06 → 列首 0.36；头部单独给 0.46（原来尾部就到 0.70、头部直接 1.0，太抢）
 RAIN_TAIL, RAIN_TIP, RAIN_HEAD_OP = 0.06, 0.36, 0.46
@@ -41,8 +41,10 @@ LAYERS = (
     ("near", 1.00, 0.70, 42,  8,  84, 66),
 )
 
-BG0, BG1 = "#03080a", "#07140f"
-LD_COLOR = "#8dffbe"       # 终端加载条：沿用液晶绿，不用参考图的琥珀色
+# 背景两端的极暗绿：色相必须跟 RAIN 同一档（148.88°），否则横幅偏绿、统计卡偏青。
+# 原来是 #03080a / #07140f，一个 197°（偏蓝）、一个 157°，两张卡各拉各的。
+BG0, BG1 = "#030a06", "#07140d"
+LD_COLOR = "#8dffc4"       # 终端加载条：沿用液晶绿，不用参考图的琥珀色
 INFO_TEXT = "CHENGDU · SICHUAN · CHINA"
 LD_BW = 72                 # 进度条字符宽度
 PX = 6
@@ -506,8 +508,8 @@ def defs(w, h, chars, gx1, gx2, spath, tbands, vbands, well):
     <radialGradient id="beamGrad" cx="0.5" cy="0.5" r="0.5">
       <stop offset="0" stop-color="#ffffff" stop-opacity="1"/>
       <stop offset="0.18" stop-color="#eafff4" stop-opacity="0.9"/>
-      <stop offset="0.5" stop-color="#5affa8" stop-opacity="0.35"/>
-      <stop offset="1" stop-color="#5affa8" stop-opacity="0"/>
+      <stop offset="0.5" stop-color="#5affa9" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#5affa9" stop-opacity="0"/>
     </radialGradient>
     <!-- userSpaceOnUse：让所有点阵方块共享同一套渐变坐标，标题才整体流动 -->
     <linearGradient id="titleGrad" gradientUnits="userSpaceOnUse"
@@ -520,7 +522,7 @@ def defs(w, h, chars, gx1, gx2, spath, tbands, vbands, well):
       <animate attributeName="x2" values="{gx2};{gx2 - 420};{gx2}" dur="9s" repeatCount="indefinite"/>
     </linearGradient>
     <pattern id="cells" width="{PX}" height="{PX}" patternUnits="userSpaceOnUse">
-      <rect x="0.5" y="0.5" width="{CELL}" height="{CELL}" fill="#5affa8" opacity="0.045"/>
+      <rect x="0.5" y="0.5" width="{CELL}" height="{CELL}" fill="#5affa9" opacity="0.045"/>
     </pattern>
     <!-- 液晶网格：横线略强于竖线 —— 横线本身就是 CRT 扫描线。
          不要再叠一层同周期图案，两层对齐的暗线会加倍成摩尔纹条带。 -->
@@ -591,17 +593,26 @@ def defs(w, h, chars, gx1, gx2, spath, tbands, vbands, well):
       <stop offset="0.86" stop-color="#6a6a6a" stop-opacity="1"/>
       <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
     </linearGradient>
-    <!-- 玻璃反光：左上角一层柔和高光（克制，只做“隔玻璃”暗示） -->
+    <!-- 玻璃反光：左上角一层柔和高光。0.045 太淡，看不出「隔了一层玻璃」，
+         抬到 0.085 才有可见的反光面，但仍不压住点阵 -->
     <radialGradient id="glass" cx="0.24" cy="0.08" r="0.46">
-      <stop offset="0" stop-color="#ffffff" stop-opacity="0.045"/>
-      <stop offset="0.55" stop-color="#ffffff" stop-opacity="0.012"/>
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.085"/>
+      <stop offset="0.55" stop-color="#ffffff" stop-opacity="0.026"/>
       <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
     </radialGradient>
+    <!-- 暗角：外圈已经交给机壳描边和阴影带了，四角再压 0.72 就死黑一片。
+         收到 0.50，中段 0.28→0.20，让边角只是「暗」不是「黑」 -->
     <radialGradient id="vig" cx="0.5" cy="0.5" r="0.78">
       <stop offset="0.35" stop-color="#000000" stop-opacity="0"/>
-      <stop offset="0.72" stop-color="#000000" stop-opacity="0.28"/>
-      <stop offset="1" stop-color="#000000" stop-opacity="0.72"/>
+      <stop offset="0.72" stop-color="#000000" stop-opacity="0.20"/>
+      <stop offset="1" stop-color="#000000" stop-opacity="0.50"/>
     </radialGradient>
+    <!-- 机壳高光：屏幕轮廓那一圈 2px 的细亮边，模拟电视边框受光 -->
+    <linearGradient id="bezelHi" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#9ad8b6" stop-opacity="0.30"/>
+      <stop offset="0.5" stop-color="#5f8a72" stop-opacity="0.08"/>
+      <stop offset="1" stop-color="#9ad8b6" stop-opacity="0.20"/>
+    </linearGradient>
     <filter id="neonGlow" x="-20%" y="-20%" width="140%" height="140%">
       <feGaussianBlur in="SourceAlpha" stdDeviation="5" result="b1"/>
       <feFlood flood-color="{MAGENTA}" flood-opacity="0.85" result="c1"/>
@@ -624,8 +635,15 @@ def defs(w, h, chars, gx1, gx2, spath, tbands, vbands, well):
   </defs>"""
 
 
-def screen_path(w, h, m=10, k=34, r=28):
-    """CRT 屏轮廓：圆角 + 四边向外鼓的桶形，于是中间显得“顶出来”。"""
+def screen_path(w, h, m=18, k=10, r=20):
+    """CRT 屏轮廓：圆角 + 四边向外鼓的桶形，于是中间显得“顶出来”。
+
+    m 必须大于鼓出量，否则轮廓会跑到画布外——那样整张画布都落在屏幕内部，
+    外圈机壳（screen_frame）就没有地方可画，卡片也就退化成整幅满版。
+    三次贝塞尔在中点的鼓出量 = 0.75*k（t=0.5 处权重 3/8+3/8），据此设闸。
+    """
+    assert m - 0.75 * k > 0, (
+        f"桶形外鼓越界：m={m} k={k}，屏顶会到 y={m - 0.75 * k:.1f}（需 > 0）")
     x0, y0, x1, y1 = m, m, w - m, h - m
     dx, dy = x1 - x0 - 2 * r, y1 - y0 - 2 * r
     return (
@@ -639,6 +657,24 @@ def screen_path(w, h, m=10, k=34, r=28):
         f'C {x0 - k},{y1 - r - dy / 3} {x0 - k},{y0 + r + dy / 3} {x0},{y0 + r} '
         f'Q {x0},{y0} {x0 + r},{y0} Z'
     )
+
+
+def screen_frame(w, h, spath, sw=2.0):
+    """屏幕外的机壳：阴影带 + 细边线（方案 C / t4-shadow-edge）。
+
+    画布不再是整幅黑底，而是透明的；只在屏幕轮廓外补两层：
+      · 阴影带：把屏幕形状从整幅画布挖掉（evenodd），剩下的环压 0.22 黑
+      · 边线环：2px 高光描边 + 外侧 0.55 黑描边 + 内侧 1px 黑线
+    这样卡片贴在 GitHub 深/浅两套主题上都吃得住：暗色下看不出接缝，浅色下不会
+    露出黑条（写死 #0d1117 在浅色主题下是一条 237 的硬差）。
+    """
+    band = (f'<path fill-rule="evenodd" fill="#000000" fill-opacity="0.22" '
+            f'd="M0 0 H{w} V{h} H0 Z M {spath[2:]}"/>')
+    ring = (f'<path d="{spath}" fill="none" stroke="#000000" '
+            f'stroke-width="{sw + 2:.1f}" stroke-opacity="0.55"/>'
+            f'<path d="{spath}" fill="none" stroke="url(#bezelHi)" stroke-width="{sw}"/>'
+            f'<path d="{spath}" fill="none" stroke="#000000" stroke-width="1" stroke-opacity="0.75"/>')
+    return band + ring
 
 
 def rain_base(j, rows):
@@ -810,10 +846,11 @@ def build_header():
            + "\n    " + dos_css() + "\n    " + loader_css(rng))
     pb, pd = PLANETS["purple"]
     ob, od = PLANETS["orange"]
+    # 画布透明：不再铺整幅黑底，屏幕形状自己就是边界（机壳在 screen_frame 里补）
+    spath = screen_path(w, h, 18, 10, 20)
     body = [
-        f'<rect width="{w}" height="{h}" fill="#000000"/>',
         '<g clip-path="url(#screen)">',
-        f'<rect width="{w}" height="{h}" fill="#000000"/>',
+        f'<rect width="{w}" height="{h}" fill="{BG0}"/>',
         '<g class="jolt" filter="url(#picfx)"><g class="collapse">',
         f'<rect width="{w}" height="{h}" fill="url(#bg)"/>',
         f'<rect width="{w}" height="{h}" fill="url(#cells)"/>',
@@ -837,11 +874,12 @@ def build_header():
         dos_markup(w, h),
         loader_markup(w, h),
         '</g>',
+        screen_frame(w, h, spath),
     ]
     tbands = [(96, 24), (142, 18), (188, 16), (238, 20)]
     vbands = [(215, 22), (390, 30), (610, 18)]
     return svg(w, h, css, defs(w, h, chars, x0, x0 + tw,
-                               screen_path(w, h, 10, 34, 28), tbands, vbands,
+                               spath, tbands, vbands,
                                rain_well(w, h, w / 2, 176, 330, 95))
                + "".join(body), "StarAsh042")
 
@@ -863,10 +901,10 @@ def build_footer():
            + "\n    " + dos_css() + "\n    " + loader_css(rng))
     pb, pd = PLANETS["purple"]
     ob, od = PLANETS["orange"]
+    spath = screen_path(w, h, 18, 12, 18)
     body = [
-        f'<rect width="{w}" height="{h}" fill="#000000"/>',
         '<g clip-path="url(#screen)">',
-        f'<rect width="{w}" height="{h}" fill="#000000"/>',
+        f'<rect width="{w}" height="{h}" fill="{BG0}"/>',
         '<g class="jolt" filter="url(#picfx)"><g class="collapse">',
         f'<rect width="{w}" height="{h}" fill="url(#bg)"/>',
         f'<rect width="{w}" height="{h}" fill="url(#cells)"/>',
@@ -889,11 +927,12 @@ def build_footer():
         dos_markup(w, h, compact=True),
         loader_markup(w, h, compact=True),
         '</g>',
+        screen_frame(w, h, spath),
     ]
     tbands = [(58, 16), (86, 14), (118, 12), (142, 14)]
     vbands = [(255, 20), (430, 26), (640, 16)]
     return svg(w, h, css, defs(w, h, chars, x0, x0 + tw,
-                               screen_path(w, h, 10, 26, 22), tbands, vbands,
+                               spath, tbands, vbands,
                                rain_well(w, h, w / 2, 112, 380, 46))
                + "".join(body), "42 reboots, still StarAsh.")
 
